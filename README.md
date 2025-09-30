@@ -58,10 +58,7 @@ docker-compose up --build
 Backend → http://localhost:8000
 
 Frontend → http://localhost:8501
-```bash
-
-### 5️⃣ Configuration
-```markdown
+```
 ## 🔑 Configuration
 - **OpenAI API Key** (optional, improves quality)
   ```bash

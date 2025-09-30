@@ -74,3 +74,4 @@ def query(req: QueryReq):
         "sources": hits,
         "meta": {"top_k": req.top_k, "num_found": len(hits)}
     }
+# end

@@ -14,19 +14,19 @@ It demonstrates how HR teams can deploy an internal AI assistant that retrieves 
 ## 🗂 Project Structure
 rag-hr-chatbot/
 ├─ data/
-│  ├─ hr_policy.pdf         # Input HR Policy
-│  └─ extracted_text/       # Intermediate JSON
-├─ ingestion/               # Extraction + cleaning + chunking
-├─ embeddings/              # Embeddings (OpenAI / sentence-transformers)
-├─ index/                   # FAISS index utilities
-├─ reranker/                # BM25 + cosine reranker
-├─ backend/                 # FastAPI backend + cache
-├─ frontend/                # Streamlit UI
+│  ├─ hr_policy.pdf  
+│  └─ extracted_text/       
+├─ ingestion/              
+├─ embeddings/          
+├─ index/                  
+├─ reranker/           
+├─ backend/         
+├─ frontend/         
 ├─ Dockerfile
 ├─ docker-compose.yml
 ├─ requirements.txt
 └─ README.md
-## ⚡ Quickstart
+##  Quickstart
 
 ### Local Run
 ```bash
@@ -96,6 +96,6 @@ This project highlights my ability to:
 - Integrate LLMs for grounded answers
 - Deliver full-stack solutions (backend + frontend + Docker)
 - Balance demo simplicity with production-readiness
----
+```
 [GitHub Repo](https://github.com/faisalimam1/rag-hr-chatbot)
 

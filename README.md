@@ -97,4 +97,5 @@ This project highlights my ability to:
 - Deliver full-stack solutions (backend + frontend + Docker)
 - Balance demo simplicity with production-readiness
 ---
-🔗 **GitHub Repo**: [github.com/faisalimam1/rag-hr-chatbot](https://github.com/faisalimam1/rag-hr-chatbot)
+[GitHub Repo](https://github.com/faisalimam1/rag-hr-chatbot)
+

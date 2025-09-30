@@ -1,30 +1,30 @@
 # RAG HR Chatbot
 
-This project is a **Retrieval-Augmented Generation (RAG) chatbot** built for answering employee queries based on the HR Policy document.  
+This project is a **Retrieval-Augmented Generation (RAG) chatbot** that answers employee queries based on an HR Policy document.  
 It demonstrates how HR teams can deploy an internal AI assistant that retrieves policy information and generates concise, citation-backed answers.
 
 ---
 
 ## 📌 Features
-- **PDF ingestion**: extracts and cleans HR policy text.
-- **Chunking**: splits into overlapping chunks for semantic search.
-- **Embeddings + FAISS**: vector index for fast retrieval.
-- **Re-ranking**: combines BM25 + cosine similarity for accuracy.
-- **Backend**: FastAPI `/query` endpoint (answer + sources + latency).
-- **Frontend**: Streamlit app with a chat-like interface.
-- **Caching**: in-memory LRU cache (optional Redis integration).
-- **Dockerized**: single `docker-compose up` runs everything.
+- **PDF ingestion**: extract and clean HR policy text  
+- **Chunking**: split into overlapping chunks for semantic search  
+- **Embeddings + FAISS**: vector index for fast retrieval  
+- **Re-ranking**: hybrid approach (BM25 + cosine similarity) for accuracy  
+- **Backend**: FastAPI `/query` endpoint (answer, sources, latency)  
+- **Frontend**: Streamlit chat-like interface  
+- **Caching**: in-memory LRU cache (with optional Redis)  
+- **Dockerized**: single `docker-compose up` runs everything  
 
 ---
 
 ## 🗂 Project Structure
 rag-hr-chatbot/
 ├─ data/
-│ ├─ hr_policy.pdf # HR Policy (input)
-│ └─ extracted_text/ # intermediate JSON
-├─ ingestion/ # text extraction + cleaning + chunking
-├─ embeddings/ # embeddings (OpenAI / sentence-transformers)
-├─ index/ # FAISS index build + utilities
+│ ├─ hr_policy.pdf # Input HR Policy
+│ └─ extracted_text/ # Intermediate JSON
+├─ ingestion/ # Extraction + cleaning + chunking
+├─ embeddings/ # Embeddings (OpenAI / sentence-transformers)
+├─ index/ # FAISS index utilities
 ├─ reranker/ # BM25 + cosine reranker
 ├─ backend/ # FastAPI backend + cache
 ├─ frontend/ # Streamlit UI
@@ -33,112 +33,108 @@ rag-hr-chatbot/
 ├─ requirements.txt
 └─ README.md
 
+yaml
+Copy code
 
 ---
 
-## ⚡ Quickstart (Local Run)
+## ⚡ Quickstart
 
-### 1. Install dependencies
+### Local Run
 ```bash
+# 1. Create and activate virtual environment
 python -m venv .venv
 source .venv/bin/activate   # Linux/macOS
 .venv\Scripts\activate      # Windows
 
+# 2. Install dependencies
 pip install -r requirements.txt
+Add your HR policy at:
 
-2. Add HR Policy
-
-Place your policy file at:
-
+bash
+Copy code
 data/hr_policy.pdf
+Build the index:
 
-3. Extract + Chunk + Build Index
+bash
+Copy code
 # Extract text
 python ingestion/extract_text.py --pdf data/hr_policy.pdf --out data/extracted_text/hr_policy_pages.json
 
-# Chunk into overlapping pieces
+# Chunk text
 python ingestion/chunker.py --pages data/extracted_text/hr_policy_pages.json --out data/extracted_text/chunks.json
 
 # Build FAISS index
 python index/build_faiss.py --chunks data/extracted_text/chunks.json --out_dir index
+Run services:
 
-4. Run Backend
-uvicorn backend.api:app --reload
+bash
+Copy code
+# Backend
+uvicorn backend.api:app --reload   # → http://localhost:8000/docs
 
-Check API at: http://localhost:8000/docs
-
-5. Run Frontend
-streamlit run frontend/app.py
-
-
-Visit: http://localhost:8501
-
-🐳 Quickstart with Docker (Recommended)
+# Frontend
+streamlit run frontend/app.py      # → http://localhost:8501
+Docker (Recommended)
+bash
+Copy code
 docker-compose up --build
-
-
 Backend → http://localhost:8000
 
 Frontend → http://localhost:8501
 
 🔑 Configuration
+OpenAI API Key (optional, improves quality):
 
-OpenAI API (optional but recommended)
-Set environment variable before running:
+bash
+Copy code
 export OPENAI_API_KEY="your_api_key"
+Embeddings: text-embedding-3-small
 
+LLM: gpt-4o-mini
 
-Uses text-embedding-3-small for embeddings.
+Offline mode: uses sentence-transformers + deterministic summarizer if no API key is set.
 
-Uses gpt-4o-mini for answer generation.
+🎯 Demo Scenarios
+“How many earned leaves do I get?” → 18 per year (with citation)
 
-Offline fallback
-If no key is provided, uses sentence-transformers for embeddings and a deterministic summarizer for answers.
+“What is the maternity leave policy?” → 26 weeks if employed >1 year (with citation)
 
-🎯 Demo Script (5–10 min)
+“Can I get 1 year of paternity leave?” → Graceful fallback answer
 
-Start services (docker-compose up --build).
-
-Ask: “How many earned leaves do I get?” → Expect “18 per year” with citation.
-
-Ask: “What is the maternity leave policy?” → Expect “26 weeks if employed >1 year” with citation.
-
-Ask a negative case: “Can I get 1 year of paternity leave?” → Expect graceful fallback.
-
-Repeat query to show cache (faster response).
+Repeat queries → Demonstrates cache (faster response)
 
 📊 Tech Stack
-
 Python 3.11
 
-FAISS for vector search
+FAISS (vector search)
 
-rank_bm25 for lexical rerank
+rank_bm25 (lexical reranker)
 
-FastAPI backend
+FastAPI (backend)
 
-Streamlit frontend
+Streamlit (frontend)
 
 Docker + docker-compose
 
 ✅ Notes
+Keep /data private (contains HR documents)
 
-Keep data/ private (contains HR documents).
+Add authentication for production deployments
 
-API is for internal demo use only — add authentication for production.
-
-Ensure no PII (emails, phone numbers) is embedded.
+Ensure no sensitive data (PII) is embedded
 
 ✨ Recruiter Value
+This project highlights my ability to:
 
-This project shows you can:
+Ingest & preprocess unstructured data (PDF policies)
 
-Ingest & preprocess unstructured text (PDF policies).
+Build retrieval pipelines with FAISS + reranking
 
-Build a retrieval pipeline with FAISS + reranking.
+Integrate LLMs for grounded, reliable answers
 
-Integrate LLMs safely for grounded answers.
+Deliver a full-stack solution (backend + frontend + Docker)
 
-Deliver a full-stack solution (backend + frontend + Docker).
+Balance demo simplicity with production-readiness
 
-Balance demo simplicity with production-readiness.
+🔗 GitHub Repo: github.com/faisalimam1/rag-hr-chatbot

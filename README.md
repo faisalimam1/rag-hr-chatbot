@@ -70,26 +70,26 @@ LLM: gpt-4o-mini
 Offline mode: uses sentence-transformers + summarizer if no key is set
 ---
 
-### 6️⃣ Demo Scenarios
+###  Demo Scenarios
 ```markdown
-## 🎯 Demo Scenarios
+##  Demo Scenarios
 - “How many earned leaves do I get?” → *18 per year* (with citation)  
 - “What is the maternity leave policy?” → *26 weeks if employed >1 year* (with citation)  
 - “Can I get 1 year of paternity leave?” → Graceful fallback answer  
 - Repeat queries → Faster (cache demo)
-## 📊 Tech Stack
+##  Tech Stack
 - Python 3.11
 - FAISS (vector search)
 - rank_bm25 (lexical reranker)
 - FastAPI (backend)
 - Streamlit (frontend)
 - Docker + docker-compose
-## ✅ Notes
+##  Notes
 - Keep `/data` private (HR documents)
 - Add authentication for production use
 - Ensure no PII (sensitive data) is embedded
 
-## ✨ Recruiter Value
+##  Recruiter Value
 This project highlights my ability to:
 - Ingest & preprocess unstructured data (PDFs)
 - Build retrieval pipelines with FAISS + reranking

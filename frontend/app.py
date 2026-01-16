@@ -45,4 +45,4 @@ if st.button("Ask") and q.strip():
     )
 
 # --- Footer ---
-st.markdown("<p style='text-align: center; font-size: 13px;'>© Faisal Imam 2025</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-size: 13px;'>© Faisal Imam 2026</p>", unsafe_allow_html=True)
